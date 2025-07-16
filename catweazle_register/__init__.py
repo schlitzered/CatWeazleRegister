@@ -137,24 +137,22 @@ class Register:
         self.log.info("Getting CatWeazle Data")
         for _ in range(self.retry):
             self.log.info("Trying to fetch CatWeazle data")
-            resp = httpx.get(
-                f"{self.endpoint}/api/v2/instances/{self.instance_id}"
-            )
+            resp = httpx.get(f"{self.endpoint}/api/v2/instances/{self.instance_id}")
             status_code = resp.status_code
             if status_code is 200:
                 data = resp.json()
             else:
                 self.log.warning(
-                    f"Could not fetch instance data, http status was {status_code}, falling back to v1 api")
-                resp = httpx.get(
-                    f"{self.endpoint}/api/v1/instances/{self.instance_id}"
+                    f"Could not fetch instance data, http status was {status_code}, falling back to v1 api"
                 )
+                resp = httpx.get(f"{self.endpoint}/api/v1/instances/{self.instance_id}")
                 status_code = resp.status_code
                 if status_code is 200:
                     data = resp.json()["data"]
                 else:
                     self.log.warning(
-                        f"Could not fetch instance data, http status was {status_code}, sleeping for 5 seconds")
+                        f"Could not fetch instance data, http status was {status_code}, sleeping for 5 seconds"
+                    )
                     time.sleep(5)
                     continue
             if "ipa_otp" in data["data"]:
