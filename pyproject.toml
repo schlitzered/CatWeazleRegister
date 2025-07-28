@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "catweazleregister"
-version = "1.0.0"
+version = "1.0.1"
 requires-python = ">=3.4"
 authors = [
   {name = "Stephan.Schultchen", email = "stephan.schultchen@gmail.com"},
@@ -18,10 +18,10 @@ classifiers = [
 ]
 
 [project.scripts]
-catweazle_register = "catweazle.main"
+catweazle_register = "catweazle_register:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["catweazle"]
+packages = ["catweazle_register"]
 
 [tool.hatch.metadata.hooks.requirements_txt]
 files = ["requirements.txt"]
