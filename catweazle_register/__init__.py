@@ -157,14 +157,14 @@ class Register:
                     continue
             if "ipa_otp" in data["data"]:
                 self.log.info("Success fetching CatWeazle data")
-                self._fqdn = data["data"]["fqdn"]
-                self._otp = data["data"]["ipa_otp"]
+                self._fqdn = data["fqdn"]
+                self._otp = data["ipa_otp"]
                 self.log.info("Getting CatWeazle Data, done")
                 return
             elif self.no_otp_ok:
                 self.log.info("Success fetching CatWeazle data")
                 self.log.info("no otp present, ignoring")
-                self._fqdn = data["data"]["fqdn"]
+                self._fqdn = data["fqdn"]
                 self.log.info("Getting CatWeazle Data, done")
                 return
             else:
@@ -196,7 +196,11 @@ class Register:
 
     def get_scripts(self, path):
         files = list()
-        candidates = os.listdir(path)
+        try:
+            candidates = os.listdir(path)
+        except FileNotFoundError as err:
+            self.log.warning(f"could not read directory {path}: {err}")
+            return files
         candidates.sort()
         for candidate in candidates:
             candidate = os.path.join(path, candidate)
