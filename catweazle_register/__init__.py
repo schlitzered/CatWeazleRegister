@@ -139,7 +139,7 @@ class Register:
             self.log.info("Trying to fetch CatWeazle data")
             resp = httpx.get(f"{self.endpoint}/api/v2/instances/{self.instance_id}")
             status_code = resp.status_code
-            if status_code is 200:
+            if status_code == 200:
                 data = resp.json()
             else:
                 self.log.warning(
@@ -147,7 +147,7 @@ class Register:
                 )
                 resp = httpx.get(f"{self.endpoint}/api/v1/instances/{self.instance_id}")
                 status_code = resp.status_code
-                if status_code is 200:
+                if status_code == 200:
                     data = resp.json()["data"]
                 else:
                     self.log.warning(
