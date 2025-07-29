@@ -155,7 +155,7 @@ class Register:
                     )
                     time.sleep(5)
                     continue
-            if "ipa_otp" in data["data"]:
+            if "ipa_otp" in data:
                 self.log.info("Success fetching CatWeazle data")
                 self._fqdn = data["fqdn"]
                 self._otp = data["ipa_otp"]
